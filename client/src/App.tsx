@@ -1,24 +1,25 @@
 import "./App.css";
-import Navbar from "./Components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AccountContext from "./Features/AccountContext";
 import { useState, useEffect } from "react";
-import ProfilePage from "./Components/ProfilePage";
-import LoginSignupPage from "./Components/LoginSignupPage";
 
-import Home from "./Pages/Home";
-import AddRecipe from "./Pages/recipes/addRecipe";
-import EditRecipe from "./Pages/recipes/editRecipe";
-import ServerContext from "./Features/ServerContext";
-import RecipePage from "./Pages/recipes/recipePage";
-import SearchPage from "./Pages/SearchPage";
 
 import './App.css'
+import ServerContext from "./Features/ServerContext";
+import AccountContext from "./Features/AccountContext";
+import React from "react";
+import Home from "./Pages/Home";
+import AddRecipe from "./Pages/recipes/addRecipe";
+import RecipePage from "./Pages/recipes/recipePage";
+import ProfilePage from "./Components/ProfilePage";
+import LoginSignupPage from "./Components/LoginSignupPage";
+import SearchPage from "./Pages/SearchPage";
+import EditRecipe from "./Pages/recipes/editRecipe";
+import Navbar from "./Components/Navbar";
 
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
-  const [user_id, setUserId] = useState(null)
+  const [user_id, setUserId] = useState<number | null>(null)
   const [username, setUsername] = useState('')
 
   return (

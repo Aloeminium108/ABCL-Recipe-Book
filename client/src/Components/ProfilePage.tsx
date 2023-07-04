@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import AccountContext from "../Features/AccountContext"
 import ServerContext from "../Features/ServerContext";
+import React from "react";
 
 function ProfilePage() {
 

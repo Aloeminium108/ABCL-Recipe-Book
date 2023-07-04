@@ -5,13 +5,13 @@ import ServerContext from "../../Features/ServerContext";
 
 const EditRecipe = () => {
 
-  const title = useRef('');
-  const description = useRef('');
-  const content = useRef('');
-  const cookTime = useRef('');
-  const prepTime = useRef('');
-  const servings = useRef('');
-  const tags = useRef('');
+  const title = useRef<HTMLInputElement>();
+  const description = useRef<HTMLInputElement>();
+  const content = useRef<HTMLInputElement>();
+  const cookTime = useRef<HTMLInputElement>();
+  const prepTime = useRef<HTMLInputElement>();
+  const servings = useRef<HTMLInputElement>();
+  const tags = useRef<HTMLInputElement>();
   
   const { serverURL } = useContext(ServerContext);
   const { recipe_id } = useParams();
@@ -36,18 +36,18 @@ const EditRecipe = () => {
         }
         setRecipe(recipe_info);
         setLoading(false);
-        title.current.value = recipe_info.title;
-        description.current.value = recipe_info.description;
-        content.current.value = recipe_info.recipe_content;
-        cookTime.current.value = recipe_info.cook_time_in_minutes;
-        prepTime.current.value = recipe_info.prep_time_in_minutes;
-        servings.current.value = recipe_info.servings;
-        tags.current.value = recipe_info.tags;
+        title!!.current!!.value = recipe_info.title;
+        description!!.current!!.value = recipe_info.description;
+        content!!.current!!.value = recipe_info.recipe_content;
+        cookTime!!.current!!.value = recipe_info.cook_time_in_minutes;
+        prepTime!!.current!!.value = recipe_info.prep_time_in_minutes;
+        servings!!.current!!.value = recipe_info.servings;
+        tags!!.current!!.value = recipe_info.tags;
       };
       retrieveRecipe();
   }, []);
 
-  const handleEdit = (e, recipeInfo) => {
+  const handleEdit = (e: any, recipeInfo: any) => {
 
     e.preventDefault();
 
@@ -73,7 +73,7 @@ const EditRecipe = () => {
         <div>
           <label htmlFor='title'>Title: </label>
           <input
-            ref={title}
+            ref={title as any}
             type="text"
             id="title"
             name="title"
@@ -85,7 +85,7 @@ const EditRecipe = () => {
         <div>
           <label htmlFor='description'>Description: </label>
           <input
-            ref={description}
+            ref={description as any}
             type="text"
             id="description"
             name="name"
@@ -94,7 +94,7 @@ const EditRecipe = () => {
         <div>
           <label htmlFor="content">Recipe: </label>
           <input
-          ref={content}
+          ref={content as any}
             type="text"
             id="content"
             name="content"
@@ -103,7 +103,7 @@ const EditRecipe = () => {
         <div>
           <label htmlFor="prep-time">Prep Time: </label>
           <input
-            ref={prepTime}
+            ref={prepTime as any}
             type="number"
             id="prep-time"
             name="prep-time"
@@ -111,7 +111,7 @@ const EditRecipe = () => {
 
           <label htmlFor="cook-time">Cook Time: </label>
           <input
-            ref={cookTime}
+            ref={cookTime as any}
             type="number"
             id="cook-time"
             name="cook-time"
@@ -121,7 +121,7 @@ const EditRecipe = () => {
         <div>
           <label htmlFor="servings">Servings: </label>
           <input
-            ref={servings}
+            ref={servings as any}
             type="number"
             id="servings"
             name="servings"
@@ -130,7 +130,7 @@ const EditRecipe = () => {
         <div>
           <label htmlFor="tags">Tags: </label>
           <input 
-            ref={tags}
+            ref={tags as any}
             type="text"
             id="tags"
             name="tags"
@@ -140,13 +140,13 @@ const EditRecipe = () => {
         <div>
           <button type="submit" onClick={(e) => handleEdit(
             e, {
-              title: title.current.value,
-              description: description.current.value,
-              content: content.current.value,
-              cookTime: cookTime.current.value,
-              prepTime: prepTime.current.value,
-              servings: servings.current.value,
-              tags: tags.current.value
+              title: title!!.current!!.value,
+              description: description!!.current!!.value,
+              content: content!!.current!!.value,
+              cookTime: cookTime!!.current!!.value,
+              prepTime: prepTime!!.current!!.value,
+              servings: servings!!.current!!.value,
+              tags: tags!!.current!!.value
             }
           )}>
             Submit

@@ -1,6 +1,7 @@
+import React from "react"
 import { Link } from "react-router-dom"
 
-function UserProfile(props) {
+function UserProfile(props: any) {
 
     return (
         <h3>

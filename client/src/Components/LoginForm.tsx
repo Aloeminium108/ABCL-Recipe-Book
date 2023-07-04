@@ -2,6 +2,7 @@ import { useContext, useRef } from "react"
 import AccountContext from "../Features/AccountContext"
 import { useNavigate } from "react-router-dom"
 import ServerContext from "../Features/ServerContext";
+import React from "react";
 
 function LoginForm() {
 
@@ -10,10 +11,10 @@ function LoginForm() {
     const {setLoggedIn, setUserId, setUsername} = useContext(AccountContext)
     const { serverURL } = useContext(ServerContext)
 
-    const username = useRef('')
-    const password = useRef('')
+    const username = useRef<HTMLInputElement>()
+    const password = useRef<HTMLInputElement>()
 
-    const handleSubmit = (e, username, password) => {
+    const handleSubmit = (e: any, username: any, password: any) => {
         e.preventDefault()
 
         const userInfo = JSON.stringify({
@@ -25,7 +26,7 @@ function LoginForm() {
             method: 'POST',
             mode: 'cors',
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
             credentials: 'include',
             body: userInfo,
@@ -63,10 +64,10 @@ function LoginForm() {
         <h2>Log In</h2>
             <form>
                 <label htmlFor="username">Username: </label>
-                <input ref={username} id="username" name="username" type="text" />
+                <input ref={username as any} id="username" name="username" type="text" />
                 <label htmlFor="password">Password</label>
-                <input ref={password} id="password" name="password" type="text" />
-                <button onClick={(e) => handleSubmit(e, username.current.value, password.current.value)}>Log in</button>
+                <input ref={password as any} id="password" name="password" type="text" />
+                <button onClick={(e) => handleSubmit(e, username!!.current!!.value, password!!.current!!.value)}>Log in</button>
             </form>
         </>
 

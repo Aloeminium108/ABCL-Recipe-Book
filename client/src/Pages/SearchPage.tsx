@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import ShowRecipe from "./recipes/showRecipe";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ServerContext from "../Features/ServerContext";
 import { useSearchParams } from "react-router-dom";
+import ServerContext from "../Features/ServerContext";
+import ShowRecipe from "./recipes/showRecipe";
 
 
 export default function SearchPage() {

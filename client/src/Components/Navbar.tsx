@@ -1,11 +1,12 @@
 import { useContext , useEffect} from 'react'
 import './Navbar.css'
-import AccountButton from './NavbarButtons/AccountButton'
-import HomeButton from './NavbarButtons/HomeButton'
-import SearchBar from './NavbarButtons/SearchBar'
 import ServerContext from '../Features/ServerContext'
 import AccountContext from '../Features/AccountContext'
-import AddRecipeButton from './NavbarButtons/AddRecipeButton'
+import React from 'react';
+import HomeButton from './NavbarButtons/HomeButton';
+import SearchBar from './NavbarButtons/SearchBar';
+import AddRecipeButton from './NavbarButtons/AddRecipeButton';
+import AccountButton from './NavbarButtons/AccountButton';
 
 function Navbar() {
 

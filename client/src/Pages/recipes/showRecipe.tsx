@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./show.css";
 import { Card, ListGroup, Row, Col } from "react-bootstrap";
 
-const ShowRecipe = (recipe_data) => {
+const ShowRecipe = (recipe_data: any) => {
   return (
     <Row xs={1} md={2} className="g-4">
       {/* {Array.from({ length: 4 }).map((_, idx) => (

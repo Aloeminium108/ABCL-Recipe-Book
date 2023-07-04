@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ServerContext from "../../Features/ServerContext";
 import axios from "axios";
 import "./show.css";
-import Button from "react-bootstrap/Button";
+import ServerContext from "../../Features/ServerContext";
 import AccountContext from "../../Features/AccountContext";
 
 const RecipePage = () => {
@@ -12,7 +11,7 @@ const RecipePage = () => {
   const { recipe_id } = useParams();
   const navigate = useNavigate();
 
-  const [recipe_data, setRecipe] = useState({});
+  const [recipe_data, setRecipe] = useState<any>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const RecipePage = () => {
     retrieveRecipe();
   }, []);
 
-  const handleDelete = (e) => {
+  const handleDelete = (e: any) => {
 
     e.preventDefault();
 
@@ -82,7 +81,6 @@ const RecipePage = () => {
               </div>
               <input
                 type="submit"
-                variant="outline-danger"
                 value="Delete Recipe"
                 onClick={handleDelete} 
                 />

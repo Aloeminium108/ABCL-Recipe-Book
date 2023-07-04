@@ -9,11 +9,11 @@ export default function SearchBar() {
 
   const navigate = useNavigate()
 
-  const searchTerm = useRef('')
+  const searchTerm = useRef<HTMLInputElement>()
 
   const { serverURL } = useContext(ServerContext)
 
-  const handleSearch = async (e, tags) => {
+  const handleSearch = async (e: any, tags: any) => {
 
     e.preventDefault()
 
@@ -35,9 +35,9 @@ export default function SearchBar() {
 
   return (
     <div>
-         <Form className="d-flex" onSubmit={(e) => handleSearch(e, searchTerm.current.value)}>
+         <Form className="d-flex" onSubmit={(e) => handleSearch(e, searchTerm!!.current!!.value)}>
             <Form.Control
-              ref={searchTerm}
+              ref={searchTerm as any}
               type="search"
               placeholder="Search"
               className="searchBar me-2"
@@ -47,7 +47,7 @@ export default function SearchBar() {
               className="searchBtn" 
               variant="outline-success" 
               size='sm'
-              onClick={(e) => handleSearch(e, searchTerm.current.value)}
+              onClick={(e) => handleSearch(e, searchTerm!!.current!!.value)}
             >
               Search
             </Button>

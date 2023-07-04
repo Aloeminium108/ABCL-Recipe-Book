@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import AccountContext from "../../Features/AccountContext";
 import UserProfile from "./UserProfile";
 import LoginButton from "./LoginButton";
+import React from "react";
 
 function AccountButton() {
 
