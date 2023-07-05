@@ -1,13 +1,14 @@
 // DEPENDENCIES
-const user = require('express').Router()
-const db = require('../models')
+import db from '../models'
+import { Op } from 'sequelize'
+import cookie from 'cookie'
+import Authentication from '../authentication'
+import { Request, Response } from 'express'
 const { User_data, Recipe_data, Rating_reviews } = db 
-const { Op } = require('sequelize')
-const cookie = require('cookie')
-const Authentication = require('../authentication')
+const user = require('express').Router()
 
 // FIND ALL USERS
-user.get('/', async (req, res) => {
+user.get('/', async (req: Request, res: Response) => {
     try {
         const foundUsers = await User_data.findAll({
             order: [ [ 'user_id', 'ASC'] ],
@@ -32,7 +33,7 @@ user.get('/', async (req, res) => {
 })
 
 // FIND A SPECIFIC USER
-user.get('/:id', async (req, res) => {
+user.get('/:id', async (req: Request, res: Response) => {
     try {
         const foundUser = await User_data.findOne({
             where: { user_id: req.params.id }
@@ -44,7 +45,7 @@ user.get('/:id', async (req, res) => {
 })
 
 // CREATE A USER
-user.post('/', async (req, res) => {
+user.post('/', async (req: Request, res: Response) => {
     try {
         const newUser = await User_data.create(req.body)
         const sessionToken = await Authentication.createCookie(newUser.user_id)
@@ -55,14 +56,14 @@ user.post('/', async (req, res) => {
                 secure: true,
                 httpOnly: true,
                 path: '/',
-                sameSite: 'None'
+                sameSite: 'none'
 
             }),
             cookie.serialize('user_id', newUser.user_id, {
                 secure: true,
                 httpOnly: true,
                 path: '/',
-                sameSite: 'None'
+                sameSite: 'none'
             })
         ])
         res.json(newUser)
@@ -74,7 +75,7 @@ user.post('/', async (req, res) => {
 })
 
 // VERIFY LOGIN FOR USER
-user.post('/login', async (req, res) => {
+user.post('/login', async (req: Request, res: Response) => {
     try {
         const foundUser = await User_data.findOne({
             where: { 
@@ -93,13 +94,13 @@ user.post('/login', async (req, res) => {
                     secure: true,
                     httpOnly: true,
                     path: '/',
-                    sameSite: 'None'
+                    sameSite: 'none'
                 }),
                 cookie.serialize('user_id', foundUser.user_id, {
                     secure: true,
                     httpOnly: true,
                     path: '/',
-                    sameSite: 'None'
+                    sameSite: 'none'
                 })
             ])
             res.json(foundUser)
@@ -114,7 +115,7 @@ user.post('/login', async (req, res) => {
 
 // TEST CONTROLLER 
 
-user.post('/test', async (req, res) => {
+user.post('/test', async (req: Request, res: Response) => {
     try {
         console.log(req.headers.cookie)
         res.status(200).json({cookies: req.headers.cookie})
@@ -123,7 +124,7 @@ user.post('/test', async (req, res) => {
     }
 })
 
-user.post('/session/view', async (req, res) => {
+user.post('/session/view', async (req: Request, res: Response) => {
     try {
 
         const tokens = await Authentication.viewSessionTokens();
@@ -136,7 +137,7 @@ user.post('/session/view', async (req, res) => {
     }
 })
 
-user.post('/session', async (req, res) => {
+user.post('/session', async (req: Request, res: Response) => {
     try {
         const { user_id, session_token } = cookie.parse(req.headers.cookie + '')
 
@@ -163,7 +164,7 @@ user.post('/session', async (req, res) => {
 })
 
 // UPDATE A USER
-user.put('/:id', async (req, res) => {
+user.put('/:id', async (req: Request, res: Response) => {
     try {
         const updatedUser = await User_data.update(req.body, {
             where: {
@@ -179,7 +180,7 @@ user.put('/:id', async (req, res) => {
 })
 
 // DELETE A USER
-user.delete('/:id', async (req, res) => {
+user.delete('/:id', async (req: Request, res: Response) => {
     try {
         const deletedUser = await User_data.destroy({
             where: {
@@ -194,16 +195,16 @@ user.delete('/:id', async (req, res) => {
     }
 })
 
-user.delete('/logout/:id', async (req, res) => {
+user.delete('/logout/:id', async (req: Request, res: Response) => {
     try {
-        const { user_id, session_token } = cookie.parse(req.headers.cookie)
+        const { user_id, session_token } = cookie.parse(req.headers.cookie!!)
 
         if (user_id === undefined || session_token === undefined) {
             res.status(200).json({user_id: null})
             return
         }
 
-        await Authentication.logout(user_id, session_token)
+        await Authentication.logout(parseInt(user_id), session_token)
         res.status(200).json({message: "Logged out successfully"})
     } catch(err) {
         res.status(500).json(err)
@@ -211,4 +212,4 @@ user.delete('/logout/:id', async (req, res) => {
 })
 
 // EXPORT
-module.exports = user
+export default user

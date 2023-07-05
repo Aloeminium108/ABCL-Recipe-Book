@@ -1,14 +1,14 @@
 'use strict';
-const { Model } = require('sequelize');
+import { Model } from 'sequelize';
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize: any, DataTypes: any) => {
   class Recipe_data extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ User_data, Rating_reviews }) {
+    static associate({ User_data, Rating_reviews }: { User_data: any, Rating_reviews: any }) {
         Recipe_data.belongsTo(User_data, {
             foreignKey: 'user_id',
             as: 'author'

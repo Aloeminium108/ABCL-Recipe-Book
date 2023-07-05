@@ -1,7 +1,7 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface: any, Sequelize: any) {
     await queryInterface.createTable('Session_cookies', {
       cookie_id: {
         type: Sequelize.INTEGER,
@@ -24,7 +24,7 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface: any, Sequelize: any) {
     await queryInterface.dropTable('Session_cookies');
   }
 };

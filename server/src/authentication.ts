@@ -1,11 +1,10 @@
 // DEPENDENCIES
-const db = require('./models')
-const { Session_cookies, User_data } = db 
-const { Op } = require('sequelize')
-const cookie = require('cookie')
-const hash = require('hash.js')
+import db from './models/index'
+import hash from 'hash.js'
 
-function generateToken() {
+const { Session_cookies, User_data } = db 
+
+function generateToken(): string {
     const currentDate = new Date()
     const timestamp = currentDate.getTime()
     const rand = Math.random() * 1000000
@@ -15,7 +14,7 @@ function generateToken() {
 
 class Authentication {
 
-    static async createCookie(user_id) {
+    static async createCookie(user_id: number) {
 
         await Session_cookies.destroy({
             where: {
@@ -34,7 +33,7 @@ class Authentication {
 
     }
 
-    static async confirmToken(user_id, session_token) {
+    static async confirmToken(user_id: number, session_token: any) {
         const session = await Session_cookies.findOne({
             where: {
                 user_id: user_id,
@@ -50,7 +49,7 @@ class Authentication {
         return (session !== null)
     }
 
-    static async logout(user_id, session_token) {
+    static async logout(user_id: number, session_token: any) {
         const session = Session_cookies.findOne({
             where: {
                 user_id: user_id,
@@ -76,4 +75,4 @@ class Authentication {
     }
 }
 
-module.exports = Authentication
+export default Authentication

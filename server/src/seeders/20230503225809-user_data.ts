@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up (queryInterface: any, Sequelize: any) {
     return queryInterface.bulkInsert('user_data', [{
       user_id: 1,
       username: 'username',
@@ -10,7 +10,7 @@ module.exports = {
     }], {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface: any, Sequelize: any) {
     return queryInterface.bulkDelete('rating_reviews', null, {});
   }
 };

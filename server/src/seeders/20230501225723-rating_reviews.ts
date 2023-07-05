@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up (queryInterface: any, Sequelize: any) {
     return queryInterface.bulkInsert('rating_reviews', [{
       rating_review_id: 1,
       recipe_id: 1,
@@ -12,7 +12,7 @@ module.exports = {
     }], {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface: any, Sequelize: any) {
     return queryInterface.bulkDelete('rating_reviews', null, {});
   }
 };

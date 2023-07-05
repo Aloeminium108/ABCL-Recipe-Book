@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up (queryInterface: any, Sequelize: any) {
     return queryInterface.bulkInsert('recipe_data', [{
       recipe_id: 1 ,
       user_id: 1 ,
@@ -23,7 +23,7 @@ module.exports = {
     }], {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface: any, Sequelize: any) {
     return queryInterface.bulkDelete('recipe_data', null, {});
   }
 };

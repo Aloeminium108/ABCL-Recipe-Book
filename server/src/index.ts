@@ -1,10 +1,11 @@
 // DEPENDENCIES
-const express = require('express')
-const cors = require('cors')
+import express, { Request, Response } from 'express'
+import cors from 'cors'
+import usersController from './controllers/user_data_controller'
+import recipesController from './controllers/recipe_data_controller'
+import reviewsController from './controllers/rating_reviews_controller'
+
 const app = express()
-const usersController = require('./controllers/user_data_controller')
-const recipesController = require('./controllers/recipe_data_controller')
-const reviewsController = require('./controllers/rating_reviews_controller')
 
 // CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
@@ -21,7 +22,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // ROOT
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
     res.status(200).json({
         message: 'Welcome to the Recipe API'
     })

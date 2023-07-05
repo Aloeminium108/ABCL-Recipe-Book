@@ -1,13 +1,14 @@
 // DEPENDENCIES
-const recipes = require('express').Router()
-const db = require('../models')
+import db from '../models'
+import { Op } from 'sequelize'
+import cookie from 'cookie'
+import Authentication from '../authentication'
+import { Request, Response } from 'express'
 const { Recipe_data, User_data, Rating_reviews } = db 
-const { Op } = require('sequelize')
-const cookie = require('cookie')
-const Authentication = require('../authentication')
+const recipes = require('express').Router()
 
 // FIND ALL RECIPES
-recipes.get('/', async (req, res) => {
+recipes.get('/', async (req: Request, res: Response) => {
     try {
         const foundRecipes = await Recipe_data.findAll({
             order: [ [ 'recipe_id', 'ASC'] ],
@@ -33,10 +34,10 @@ recipes.get('/', async (req, res) => {
 })
 
 // SEARCH RECIPES
-recipes.get('/search', async (req, res) => {
+recipes.get('/search', async (req: Request, res: Response) => {
     try {
 
-        const tags = await JSON.parse(req.query.tags)
+        const tags = await JSON.parse(req.query.tags as string)
 
         const foundRecipe = await Recipe_data.findAll({
             where: { tags: { [Op.contains]: tags } },
@@ -58,7 +59,7 @@ recipes.get('/search', async (req, res) => {
 })
 
 // FIND A SPECIFIC RECIPE
-recipes.get('/show/:id', async (req, res) => {
+recipes.get('/show/:id', async (req: Request, res: Response) => {
     try {
         const foundRecipe = await Recipe_data.findOne({
             where: { recipe_id: req.params.id },
@@ -80,7 +81,7 @@ recipes.get('/show/:id', async (req, res) => {
 })
 
 // CREATE A RECIPE
-recipes.post('/', async (req, res) => {
+recipes.post('/', async (req: Request, res: Response) => {
     try {
 
         const { user_id, session_token } = cookie.parse(req.headers.cookie + '')
@@ -90,7 +91,7 @@ recipes.post('/', async (req, res) => {
             return
         }
 
-        if (Authentication.confirmToken(parseInt(user_id), session_token)) {
+        if (await Authentication.confirmToken(parseInt(user_id), session_token)) {
 
             const recipeInfo = {
                 user_id: user_id,
@@ -121,7 +122,7 @@ recipes.post('/', async (req, res) => {
 })
 
 // UPDATE A RECIPE
-recipes.put('/:id', async (req, res) => {
+recipes.put('/:id', async (req: Request, res: Response) => {
     try {
         const { user_id, session_token } = cookie.parse(req.headers.cookie + '')
 
@@ -172,7 +173,7 @@ recipes.put('/:id', async (req, res) => {
 })
 
 // DELETE A RECIPE
-recipes.delete('/:id', async (req, res) => {
+recipes.delete('/:id', async (req: Request, res: Response) => {
     try {
 
         const { user_id, session_token } = cookie.parse(req.headers.cookie + '')
@@ -208,4 +209,4 @@ recipes.delete('/:id', async (req, res) => {
 })
 
 // EXPORT
-module.exports = recipes
+export default recipes

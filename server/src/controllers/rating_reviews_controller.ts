@@ -1,12 +1,13 @@
 // DEPENDENCIES
+import db from '../models'
+import Authentication from '../authentication'
+import { Request, Response } from 'express'
+import { parse } from 'cookie'
 const reviews = require('express').Router()
-const db = require('../models')
 const { Rating_reviews, User_data, Recipe_data } = db 
-const { Op } = require('sequelize')
-const Authentication = require('../authentication')
 
 // FIND ALL REVIEWS
-reviews.get('/', async (req, res) => {
+reviews.get('/', async (req: Request, res: Response) => {
     try {
         const foundReviews = await Rating_reviews.findAll({
             order: [ [ 'rating_reviews_id', 'ASC'] ],
@@ -41,7 +42,7 @@ reviews.get('/', async (req, res) => {
 // })
 
 // FIND ALL REVIEWS TIED TO A SPECIFIC RECIPE
-reviews.get('/recipes/:id', async (req, res) => {
+reviews.get('/recipes/:id', async (req: Request, res: Response) => {
     try {
         const foundReviews = await Rating_reviews.findAll({
             where: { recipe_id: req.params.id }
@@ -53,10 +54,10 @@ reviews.get('/recipes/:id', async (req, res) => {
 })
 
 // CREATE A REVIEW
-reviews.post('/', async (req, res) => {
+reviews.post('/', async (req: Request, res: Response) => {
     try {
 
-        const { user_id, session_token } = cookie.parse(req.headers.cookie + '')
+        const { user_id, session_token } = parse(req.headers.cookie + '')
 
         if (user_id === undefined || session_token === undefined || user_id !== req.params.id) {
             res.status(401).json({recipe_id: null})
@@ -95,7 +96,7 @@ reviews.post('/', async (req, res) => {
 })
 
 // UPDATE A REVIEW
-reviews.put('/:id', async (req, res) => {
+reviews.put('/:id', async (req: Request, res: Response) => {
     try {
         const updatedReview = await Rating_reviews.update(req.body, {
             where: {
@@ -111,7 +112,7 @@ reviews.put('/:id', async (req, res) => {
 })
 
 // DELETE A REVIEW
-reviews.delete('/:id', async (req, res) => {
+reviews.delete('/:id', async (req: Request, res: Response) => {
     try {
         const deletedReview = await Rating_reviews.destroy({
             where: {
@@ -127,4 +128,4 @@ reviews.delete('/:id', async (req, res) => {
 })
 
 // EXPORT
-module.exports = reviews
+export default reviews
