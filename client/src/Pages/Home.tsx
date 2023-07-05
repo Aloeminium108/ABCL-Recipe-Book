@@ -4,10 +4,11 @@ import axios from "axios";
 import '../Pages/recipes/show.css'
 import ServerContext from "../Features/ServerContext";
 import ShowRecipe from "./recipes/showRecipe";
+import { RecipeData } from "./recipes/RecipeProps";
 
 export default function Home() {
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [recipes, setRecipes] = useState<RecipeData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { serverURL } = useContext(ServerContext);
 

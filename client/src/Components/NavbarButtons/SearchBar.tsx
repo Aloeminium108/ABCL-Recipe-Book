@@ -1,8 +1,7 @@
-import React, { useContext, useRef } from 'react'
+import React, { useRef } from 'react'
 import './Navbarbuttons.css'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
-import ServerContext from '../../Features/ServerContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function SearchBar() {
@@ -11,23 +10,9 @@ export default function SearchBar() {
 
   const searchTerm = useRef<HTMLInputElement>()
 
-  const { serverURL } = useContext(ServerContext)
-
-  const handleSearch = async (e: any, tags: any) => {
+  const handleSearch = async (e: React.FormEvent, tags: string) => {
 
     e.preventDefault()
-
-    // fetch(`${serverURL}/recipes/search/?tags=${await JSON.stringify(tags.split(' '))}`, {
-    //   method: 'GET',
-    //   mode: 'cors',
-    //   headers: {
-    //       "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then(res => res.json())
-    //   .then(body => {
-    //     console.log(body)
-    //   })
     
     navigate(`/search/?tags=${await JSON.stringify(tags.split(' '))}`)
     
@@ -37,7 +22,7 @@ export default function SearchBar() {
     <div>
          <Form className="d-flex" onSubmit={(e) => handleSearch(e, searchTerm!!.current!!.value)}>
             <Form.Control
-              ref={searchTerm as any}
+              ref={searchTerm as React.RefObject<HTMLInputElement>}
               type="search"
               placeholder="Search"
               className="searchBar me-2"

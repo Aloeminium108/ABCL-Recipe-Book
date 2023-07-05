@@ -4,6 +4,7 @@ import axios from "axios";
 import "./show.css";
 import ServerContext from "../../Features/ServerContext";
 import AccountContext from "../../Features/AccountContext";
+import { RecipeData } from "./RecipeProps";
 
 const RecipePage = () => {
   const { serverURL } = useContext(ServerContext);
@@ -11,8 +12,8 @@ const RecipePage = () => {
   const { recipe_id } = useParams();
   const navigate = useNavigate();
 
-  const [recipe_data, setRecipe] = useState<any>({});
-  const [loading, setLoading] = useState(true);
+  const [recipe_data, setRecipe] = useState<RecipeData>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const retrieveRecipe = async () => {
@@ -24,7 +25,7 @@ const RecipePage = () => {
     retrieveRecipe();
   }, []);
 
-  const handleDelete = (e: any) => {
+  const handleDelete = (e: React.FormEvent) => {
 
     e.preventDefault();
 
@@ -43,6 +44,7 @@ const RecipePage = () => {
   }
 
   return (
+    recipe_data ? 
     <div key={recipe_data.recipe_id}>
       <div>
         <h1>{recipe_data.title}</h1>
@@ -90,6 +92,7 @@ const RecipePage = () => {
         </div>
       </div>
     </div>
+    : <></>
   );
 };
 

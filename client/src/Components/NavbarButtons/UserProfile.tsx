@@ -1,7 +1,11 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-function UserProfile(props: any) {
+interface UserProps {
+    username: string
+}
+
+function UserProfile(props: UserProps) {
 
     return (
         <h3>
@@ -10,7 +14,6 @@ function UserProfile(props: any) {
             </Link>
         </h3>
     )
-
 
 }
 

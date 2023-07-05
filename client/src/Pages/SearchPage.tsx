@@ -4,12 +4,13 @@ import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import ServerContext from "../Features/ServerContext";
 import ShowRecipe from "./recipes/showRecipe";
+import { RecipeData } from "./recipes/RecipeProps";
 
 
 export default function SearchPage() {
 
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [recipes, setRecipes] = useState<RecipeData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { serverURL } = useContext(ServerContext);
 

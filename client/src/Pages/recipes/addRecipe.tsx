@@ -1,12 +1,12 @@
-import React, { useContext, useRef  } from "react";
+import React, { FC, useContext, useRef  } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import "./addRecipe.css"
 import ServerContext from "../../Features/ServerContext";
+import { RecipeProps } from "./RecipeProps";
 
-
-const AddRecipe = (props: any) => {
+const AddRecipe = () => {
 
   const title = useRef<HTMLInputElement>();
   const description = useRef<HTMLInputElement>();
@@ -19,7 +19,7 @@ const AddRecipe = (props: any) => {
   const { serverURL } = useContext(ServerContext)
   const navigate = useNavigate();
 
-  const handleAdd = (e: any, recipeInfo: any) => {
+  const handleAdd = (e: React.FormEvent, recipeInfo: RecipeProps) => {
 
     e.preventDefault();
     
@@ -45,7 +45,7 @@ const AddRecipe = (props: any) => {
       <InputGroup className="mb-3">
           <label htmlFor='title'>Title: </label>
           <Form.Control
-            ref={title as any}
+            ref={title as React.RefObject<HTMLInputElement>}
             type="text"
             id="title"
             name="title"
@@ -58,7 +58,7 @@ const AddRecipe = (props: any) => {
         <div>
           <label htmlFor='description'>Description: </label>
           <input
-            ref={description as any}
+            ref={description as React.RefObject<HTMLInputElement>}
             type="text"
             id="description"
             name="name"
@@ -68,7 +68,7 @@ const AddRecipe = (props: any) => {
         <div>
           <label htmlFor="content">Recipe: </label>
           <input
-          ref={content as any}
+          ref={content as React.RefObject<HTMLInputElement>}
             type="text"
             id="content"
             name="content"
@@ -78,7 +78,7 @@ const AddRecipe = (props: any) => {
         <div>
           <label htmlFor="prep-time">Prep Time: </label>
           <input
-            ref={prepTime as any}
+            ref={prepTime as React.RefObject<HTMLInputElement>}
             type="number"
             id="prep-time"
             name="prep-time"
@@ -86,7 +86,7 @@ const AddRecipe = (props: any) => {
 
           <label htmlFor="cook-time">Cook Time: </label>
           <input
-            ref={cookTime as any}
+            ref={cookTime as React.RefObject<HTMLInputElement>}
             type="number"
             id="cook-time"
             name="cook-time"
@@ -96,7 +96,7 @@ const AddRecipe = (props: any) => {
         <div>
           <label htmlFor="servings">Servings: </label>
           <input
-            ref={servings as any}
+            ref={servings as React.RefObject<HTMLInputElement>}
             type="number"
             id="servings"
             name="servings"
@@ -105,7 +105,7 @@ const AddRecipe = (props: any) => {
         <div>
           <label htmlFor="tags">Tags: </label>
           <input 
-            ref={tags as any}
+            ref={tags as React.RefObject<HTMLInputElement>}
             type="text"
             id="tags"
             name="tags"
@@ -118,9 +118,9 @@ const AddRecipe = (props: any) => {
               title: title!!.current!!.value,
               description: description!!.current!!.value,
               content: content!!.current!!.value,
-              cookTime: cookTime!!.current!!.value,
-              prepTime: prepTime!!.current!!.value,
-              servings: servings!!.current!!.value,
+              cookTime: parseInt(cookTime!!.current!!.value),
+              prepTime: parseInt(prepTime!!.current!!.value),
+              servings: parseInt(servings!!.current!!.value),
               tags: tags!!.current!!.value
             }
           )}>

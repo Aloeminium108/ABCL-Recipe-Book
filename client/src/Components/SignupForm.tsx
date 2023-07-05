@@ -14,7 +14,7 @@ function SignupForm() {
     const username = useRef<HTMLInputElement>()
     const password = useRef<HTMLInputElement>()
 
-    const handleSubmit = async (e: any, username: any, password: any) => {
+    const handleSubmit = async (e: React.FormEvent, username: string, password: string) => {
         e.preventDefault()
 
         const userInfo = JSON.stringify({
@@ -38,7 +38,7 @@ function SignupForm() {
                     setUsername(body.username)
                     navigate('/')
                 } else {
-                    body.errors.forEach((err: any) => {
+                    body.errors.forEach((err: {type: unknown, message: unknown}) => {
                         console.log(`ERROR TYPE - ${err.type}: ${err.message}`)
                     })
                 }
@@ -52,9 +52,9 @@ function SignupForm() {
             <h2>Sign up</h2>
             <form>
                 <label htmlFor="username">Username: </label>
-                <input ref={username as any} id="username" name="username" type="text" />
+                <input ref={username as React.RefObject<HTMLInputElement>} id="username" name="username" type="text" />
                 <label htmlFor="password">Password</label>
-                <input ref={password as any} id="password" name="password" type="text" />
+                <input ref={password as React.RefObject<HTMLInputElement>} id="password" name="password" type="text" />
                 <button onClick={(e) => handleSubmit(e, username!!.current!!.value, password!!.current!!.value)}>Sign up</button>
             </form>
         </>

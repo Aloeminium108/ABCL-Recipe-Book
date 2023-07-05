@@ -14,7 +14,7 @@ function LoginForm() {
     const username = useRef<HTMLInputElement>()
     const password = useRef<HTMLInputElement>()
 
-    const handleSubmit = (e: any, username: any, password: any) => {
+    const handleSubmit = (e: React.FormEvent, username: string, password: string) => {
         e.preventDefault()
 
         const userInfo = JSON.stringify({
@@ -44,29 +44,14 @@ function LoginForm() {
             })
     }
 
-    // const testCookies = () => {
-    //     fetch(`${serverURL}/users/test`, {
-    //         method: 'POST',
-    //         mode: 'cors',
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         credentials: 'include'
-    //     })
-    //         .then(res => res.json())
-    //         .then(body => {
-    //             console.log(body)
-    //         })
-    // }
-
     return (
         <>
         <h2>Log In</h2>
             <form>
                 <label htmlFor="username">Username: </label>
-                <input ref={username as any} id="username" name="username" type="text" />
+                <input ref={username as React.RefObject<HTMLInputElement>} id="username" name="username" type="text" />
                 <label htmlFor="password">Password</label>
-                <input ref={password as any} id="password" name="password" type="text" />
+                <input ref={password as React.RefObject<HTMLInputElement>} id="password" name="password" type="text" />
                 <button onClick={(e) => handleSubmit(e, username!!.current!!.value, password!!.current!!.value)}>Log in</button>
             </form>
         </>

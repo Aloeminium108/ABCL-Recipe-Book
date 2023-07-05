@@ -18,9 +18,9 @@ import Navbar from "./Components/Navbar";
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState<boolean>(false)
   const [user_id, setUserId] = useState<number | null>(null)
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState<string>('')
 
   return (
     <ServerContext.Provider value={{
