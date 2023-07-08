@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // DEPENDENCIES
-const models_1 = __importDefault(require("../models"));
+const models_1 = __importDefault(require("../models/"));
 const sequelize_1 = require("sequelize");
 const cookie_1 = __importDefault(require("cookie"));
 const authentication_1 = __importDefault(require("../authentication"));

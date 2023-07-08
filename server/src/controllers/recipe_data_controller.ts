@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import db from '../models'
+import db from '../models/'
 import { Op } from 'sequelize'
 import cookie from 'cookie'
 import Authentication from '../authentication'

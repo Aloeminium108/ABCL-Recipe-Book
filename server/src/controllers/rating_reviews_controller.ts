@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import db from '../models'
+import db from '../models/'
 import Authentication from '../authentication'
 import { Request, Response } from 'express'
 import { parse } from 'cookie'

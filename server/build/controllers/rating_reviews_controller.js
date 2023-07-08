@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // DEPENDENCIES
-const models_1 = __importDefault(require("../models"));
+const models_1 = __importDefault(require("../models/"));
 const authentication_1 = __importDefault(require("../authentication"));
 const cookie_1 = require("cookie");
 const reviews = require('express').Router();
